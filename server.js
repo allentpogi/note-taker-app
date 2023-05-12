@@ -26,11 +26,11 @@ app.get('/notes', (req, res) =>
 app.get('/api/notes', (req, res) => {
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
-          console.error(err);
+            console.error(err);
         } else {
-          // Convert string into JSON object
-          const savedNotes = JSON.parse(data);
-          res.json(savedNotes);
+            // Convert string into JSON object
+            const savedNotes = JSON.parse(data);
+            res.json(savedNotes);
         }
     });
 
