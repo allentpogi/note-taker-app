@@ -21,11 +21,6 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
-// route return the index.html
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/index.html'))
-);
-
 // route to GET notes from db.json
 app.get('/api/notes', (req, res) => {
     const data = fs.readFileSync(path.join(__dirname, '/db/db.json'), 'utf8');
