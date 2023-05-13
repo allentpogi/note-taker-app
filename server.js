@@ -24,36 +24,36 @@ app.get('/notes', (req, res) =>
 
 // route to GET notes from db.json
 app.get('/api/notes', (req, res) => {
-    fs.readFile('./db/db.json', 'utf8', (err, data) => {
-        if (err) {
-            console.error(err);
-        } else {
-            // Convert string into JSON object
-            const savedNotes = JSON.parse(data);
-            res.json(savedNotes);
-        }
-    });
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    if (err) {
+        console.error(err);
+    } else {
+        // Convert string into JSON object
+        const savedNotes = JSON.parse(data);
+        res.json(savedNotes);
+    }
+  });
 
 });
 
 // route to post notes to db.json
 app.post('/api/notes', (req, res) => {
-    const newNote = req.body;
-    newNote.id = uuid();
-    const notesTosave = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
-    
-    notesTosave.push(newNote);
-    fs.writeFileSync('./db/db.json', JSON.stringify(notesTosave));
-    res.json(newNote);
+  const newNote = req.body;
+  newNote.id = uuid();
+  const notesTosave = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
+  
+  notesTosave.push(newNote);
+  fs.writeFileSync('./db/db.json', JSON.stringify(notesTosave));
+  res.json(newNote);
 });
 
 //route to delete notes from db.json
 app.delete('/api/notes/:id', (req, res) => {
-    const notesData = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
-    const noteIndex = notesData.findIndex((note) => note.id === req.params.id);
-    notesData.splice(noteIndex, 1);
-    fs.writeFileSync('./db/db.json', JSON.stringify(notesData));
-    res.json(notesData);
+  const notesTosave = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
+  const index = notesTosave.findIndex((note) => note.id === req.params.id);
+  notesTosave.splice(index, 1);
+  fs.writeFileSync('./db/db.json', JSON.stringify(notesTosave));
+  res.json(notesTosave);
 });
 
 app.listen(PORT, () =>
